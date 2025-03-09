@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
 
-const AIRTABLE_API_KEY = process.env.NEXT_PUBLIC_AIRTABLE_API_KEY;
-const AIRTABLE_BASE_ID = process.env.NEXT_PUBLIC_AIRTABLE_BASE_ID;
-const INGRESOS_TABLE_ID = process.env.NEXT_PUBLIC_AIRTABLE_INGRESOS_TABLE_ID;
-const GASTOS_TABLE_ID = process.env.NEXT_PUBLIC_AIRTABLE_GASTOS_TABLE_ID;
+const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
+const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
+const INGRESOS_TABLE_ID = process.env.AIRTABLE_INGRESOS_TABLE_ID;
+const GASTOS_TABLE_ID = process.env.AIRTABLE_GASTOS_TABLE_ID;
 
 export async function GET(request) {
   try {

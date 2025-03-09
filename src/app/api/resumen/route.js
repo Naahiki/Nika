@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 
-const AIRTABLE_API_KEY = process.env.NEXT_PUBLIC_AIRTABLE_API_KEY;
-const AIRTABLE_BASE_ID = process.env.NEXT_PUBLIC_AIRTABLE_BASE_ID;
-const CONTABILIDAD_TABLE_ID = process.env.NEXT_PUBLIC_AIRTABLE_CONTABILIDAD_TABLE_ID;
+const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
+const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
+const CONTABILIDAD_TABLE_ID = process.env.AIRTABLE_CONTABILIDAD_TABLE_ID;
 
 export async function GET() {
   try {
