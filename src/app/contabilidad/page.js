@@ -1,12 +1,12 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import ResumenContabilidad from "./ResumenContabilidad";
 
 export default function Contabilidad() {
   const router = useRouter();
-  // "activeForm" define qué formulario mostrar: "gasto", "ingreso" o null
   const [activeForm, setActiveForm] = useState(null);
-  // Objeto para almacenar datos del formulario
+  const [showResumen, setShowResumen] = useState(false); // Agregado para controlar el resumen
   const [formData, setFormData] = useState({});
 
   // Manejo de inputs de texto y select
@@ -27,21 +27,21 @@ export default function Contabilidad() {
   // Enviar datos al endpoint de Airtable
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     // Enviar los datos del formulario directamente al backend
     const requestData = {
       type: activeForm, // "gasto" o "ingreso"
       data: formData,
     };
-  
+
     const response = await fetch("/api/airtable", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestData),
     });
-  
+
     const responseData = await response.json();
-  
+
     if (responseData.success) {
       alert("Registro creado con éxito");
       setFormData({});
@@ -50,7 +50,6 @@ export default function Contabilidad() {
       alert(`Error creando registro: ${responseData.error}`);
     }
   };
-  
 
   return (
     <div className="min-h-screen p-8 bg-white">
@@ -72,6 +71,12 @@ export default function Contabilidad() {
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
         >
           Añadir Ingreso
+        </button>
+        <button
+          onClick={() => setShowResumen(!showResumen)}
+          className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+        >
+          {showResumen ? "Ocultar Resumen" : "Ver Resumen"}
         </button>
       </div>
 
@@ -116,7 +121,6 @@ export default function Contabilidad() {
               <option value="Gestión">Gestión</option>
               <option value="Sueldos">Sueldos</option>
               <option value="Otros">Otros</option>
-              <option value="Chat">Chat</option>
             </select>
           </div>
           <div>
@@ -237,9 +241,14 @@ export default function Contabilidad() {
           </button>
         </form>
       )}
-    <button
+
+      {/* Resumen de Contabilidad Mensual */}
+      {showResumen && <ResumenContabilidad />}
+
+      <button
         onClick={() => router.push("/")}
-        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
         Volver al Dashboard
       </button>
     </div>
